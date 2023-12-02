@@ -19,3 +19,10 @@ This directory contains build scripts that can be invoked using `npm run`.
   on localhost. If you have code in your app to enable
   [esbuild live reload](https://esbuild.github.io/api/#live-reload), your page
   will be live reloaded whenever you save a file.
+
+These scripts are configured using [config.json](config.json), which contains
+esbuild build options. See the
+[esbuild API documentation](https://esbuild.github.io/api/) for more info, and
+check out the
+[TypeScript type definition](https://github.com/evanw/esbuild/blob/main/lib/shared/types.ts)
+as well. The JSON file here conforms to the `BuildOptions` interface.

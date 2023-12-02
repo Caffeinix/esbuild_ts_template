@@ -1,0 +1,13 @@
+{
+    "entryPoints": [
+        "src/main.ts"
+    ],
+    "bundle": true,
+    "sourcemap": true,
+    "target": "esnext",
+    "outfile": "dist/main.js",
+    "define": {
+        "DEVELOPMENT": "true"
+    },
+    "minify": false
+}

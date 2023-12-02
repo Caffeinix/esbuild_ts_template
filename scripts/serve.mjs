@@ -1,7 +1,11 @@
 // An ESBuild serve script.  This is used in `npm start`.
 import * as esbuild from "esbuild";
-import { config } from "./config.mjs";
 import * as child_process from "child_process";
+import { readFile } from "fs/promises";
+
+const config = JSON.parse(
+  await readFile(new URL("./config.json", import.meta.url))
+);
 
 // A small esbuild plugin that runs tsc before each rebuild.
 //
@@ -39,6 +43,7 @@ const typecheckBeforeRebuilding = {
     });
   },
 };
+
 const ctx = await esbuild.context({
   ...config,
   plugins: [typecheckBeforeRebuilding],
@@ -48,5 +53,5 @@ await ctx.watch();
 console.log(`esbuild is watching for changes...`);
 
 const servedir = "dist";
-const { host, port } = await ctx.serve({ servedir, host: '127.0.0.1' });
+const { host, port } = await ctx.serve({ servedir, host: "127.0.0.1" });
 console.log(`esbuild is serving "${servedir}" at ${host}:${port}...`);
