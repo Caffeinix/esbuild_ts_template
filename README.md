@@ -58,7 +58,12 @@ normal. There are
 [a few things esbuild doesn't support](https://esbuild.github.io/content-types/#typescript-caveats),
 but most of them are pretty obscure.
 
-The few options that need to be passed directly to esbuild, such as the path to the output file (which is `dist/main.js` by default) and the target JavaScript version, can be found in [scripts/config.mjs](scripts/config.mjs), which is just a JSON object conforming to the esbuild [BuildOptions interface](https://github.com/evanw/esbuild/blob/main/lib/shared/types.ts).
+The few options that need to be passed directly to esbuild, such as the path to
+the output file (which is `dist/main.js` by default) and the JavaScript version
+used for the output file, can be found in
+[scripts/config.mjs](scripts/config.mjs), which is just a JSON object conforming
+to the esbuild
+[BuildOptions interface](https://github.com/evanw/esbuild/blob/main/lib/shared/types.ts).
 
 ## Build environments
 
@@ -81,6 +86,18 @@ you want to introduce more build environments for some reason, look at [scripts/
 
 ## FAQ
 
+**Q: Why do I need this at all?**
+
+There are at least two different standards for importing JavaScript code into
+other JavaScript code: ECMAScript modules (also known as ESM) and CommonJS (also
+known as CJS). Browsers natively support ECMAScript modules when your `script`
+tag has `type="module"`, and TypeScript imports use ECMAScript module syntax as
+well, but most Node packages are configured to use CommonJS.  Some package authors publish versions of their packages that use ECMAScript modules instead, but many don't, so without using some kind of bundler you're going to frequently run into npm packages you just can't use.
+
+The usual advice for how to fix this is to just use a "starter kit" that will configure some vast and unknowable set of bundlers, transpilers, servers, test frameworks, documentation generators, linters, and assorted plugins in ways you will never understand.  This will invariably work well until you need to do anything at all out of the ordinary, at which point you will be expected to spend weeks reading documentation and tweaking the environment until the whole thing collapses like the house of cards it is and you port your project to another starter kit using a different but equally vast and unknowable set of dependencies, and the cycle starts again.
+
+As you can probably tell, I got fed up with this.  So I decided to make my own "starter kit" that has exactly two dependencies: esbuild, which is a straightforward bundler that takes a bunch of code in different files with various imports and combines it together into one file with no imports, and TypeScript, which is TypeScript.  If you already know TypeScript, the only thing it is even conceivably possible you will need to learn to fully understand what's going on here is esbuild, and that's only if you want to do something fancy.  All the usual things you might want to do, like serve some images alongside your code or bundle JSON or CSS files into your JavaScript file, can be done without any configuration changes.
+
 **Q: Why aren't you using the TypeScript compiler to compile the code?**
 
 A: It is possible to run `tsc` first and then bundle the JavaScript files it
@@ -96,5 +113,7 @@ for more details on this from the author of esbuild.
 
 **Q: Is this template suitable for developing a TypeScript module?**
 
-A: Not as configured by default, no, but some changes to the [tsconfig.json](tsconfig.json) should get you there.
+A: Not by default, no. The default configuration is appropriate for building an
+application designed to be run in the browser. That said, some changes to the
+[tsconfig.json](tsconfig.json) should get you there.
 
