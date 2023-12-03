@@ -1,5 +1,4 @@
 {
-  "$schema": "./esbuild.schema",
   "entryPoints": ["src/main.ts"],
   "bundle": true,
   "sourcemap": true,
