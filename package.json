@@ -1,6 +1,6 @@
 {
-  "name": "esbuild_test",
-  "version": "1.0.0",
+  "name": "esbuild_ts_template",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/main.js",
   "scripts": {
