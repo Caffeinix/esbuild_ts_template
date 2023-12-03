@@ -1,15 +1,17 @@
 # TypeScript with esbuild
 
-This project is a template for developing and building
+This is a template for developing and building
 [TypeScript](https://www.typescriptlang.org/) apps with
 [esbuild](https://esbuild.github.io/), with minimal fuss and as few development
 dependencies as humanly possible. It is designed for people who are writing
-relatively simple applications and don't want the overhead of a full build
-system like [Vite](https://vitejs.dev/). With this template, you get:
+relatively simple applications targeted to the browser, and don't want the
+overhead of a full build system like [Vite](https://vitejs.dev/). With this
+template, you get:
 
-- An `npm run build` command that runs the TypeScript compiler on your code to
-  check types, and then runs `esbuild` to compile it to JavaScript and bundle it
-  with its dependencies into a single file.
+- An `npm run build` command that runs the TypeScript compiler
+  ([`tsc`](https://www.typescriptlang.org/docs/handbook/compiler-options.html))
+  on your code to check types, and then runs `esbuild` to compile it to
+  JavaScript and bundle it with its dependencies into a single file.
 
 - An `npm start` command that does all of the above in "watch" mode so that your
   code will be rechecked and rebuilt whenever it changes, and serves the app via
@@ -43,7 +45,12 @@ If you run `npm start`, your app will be served using esbuild's local developmen
 
 The experience you get from this should be identical to just running `tsc -watch` with a separate dev server.  When you run `npm start`, `tsc` will be run to check your types.  If it fails, you'll see the errors in your console and the server will not be started.  If it succeeds, esbuild will be run in watch mode to compile and serve your files.  `tsc` will be run again every time esbuild kicks off a new build, so if you introduce a type error while the server is already running, you'll see the errors and the compiled output won't be updated (just like `tsc -watch`).
 
-Note that because we're typechecking your code every time it changes, **incremental builds will be slower than if you were just using esbuild alone**.  We're optimizing for ease of use here rather than speed.  If you want to turn off typechecking and just let your IDE tell you when you have type errors, you probably don't need this project template at all and can just run `esbuild --bundle` on the command line.
+Note that because we're typechecking your code every time it changes,
+**incremental builds will be slower than if you were just using esbuild alone**.
+We're optimizing for ease of use here rather than speed. If you want to turn off
+typechecking and just let your IDE tell you when you have type errors, you
+probably don't need this template at all and can just run `esbuild --bundle` on
+the command line.
 
 ## Configuring your build
 
@@ -52,9 +59,7 @@ Pretty much all configuration of esbuild is done via the
 [tsconfig.json](tsconfig.json) file when it runs, and will [try to compile the
 code the same way tsc would given that
 configuration](https://esbuild.github.io/content-types/#tsconfig-json). For the
-most part, you can pretend you're just running
-[`tsc`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) like
-normal. There are
+most part, you can pretend you're just running `tsc` like normal. There are
 [a few things esbuild doesn't support](https://esbuild.github.io/content-types/#typescript-caveats),
 but most of them are pretty obscure.
 
@@ -92,11 +97,11 @@ There are at least two different standards for importing JavaScript code into
 other JavaScript code: ECMAScript modules (also known as ESM) and CommonJS (also
 known as CJS). Browsers natively support ECMAScript modules when your `script`
 tag has `type="module"`, and TypeScript imports use ECMAScript module syntax as
-well, but most Node packages are configured to use CommonJS.  Some package authors publish versions of their packages that use ECMAScript modules instead, but many don't, so without using some kind of bundler you're going to frequently run into npm packages you just can't use.
+well, but most Node packages are configured to use CommonJS.  Some package authors publish versions of their packages that use ECMAScript modules instead, but many don't, so without using some kind of bundler you're going to frequently run into packages you just can't use.
 
 The usual advice for how to fix this is to just use a "starter kit" that will configure some vast and unknowable set of bundlers, transpilers, servers, test frameworks, documentation generators, linters, and assorted plugins in ways you will never understand.  This will invariably work well until you need to do anything at all out of the ordinary, at which point you will be expected to spend weeks reading documentation and tweaking the environment until the whole thing collapses like the house of cards it is and you port your project to another starter kit using a different but equally vast and unknowable set of dependencies, and the cycle starts again.
 
-As you can probably tell, I got fed up with this.  So I decided to make my own "starter kit" that has exactly two dependencies: esbuild, which is a straightforward bundler that takes a bunch of code in different files with various imports and combines it together into one file with no imports, and TypeScript, which is TypeScript.  If you already know TypeScript, the only thing it is even conceivably possible you will need to learn to fully understand what's going on here is esbuild, and that's only if you want to do something fancy.  All the usual things you might want to do, like serve some images alongside your code or bundle JSON or CSS files into your JavaScript file, can be done without any configuration changes.
+As you can probably tell, I got fed up with this.  So I decided to make my own "starter kit" that has exactly two dependencies: esbuild, which is a straightforward bundler that takes a bunch of code in different files with various imports and combines it together into one file with no imports; and TypeScript, which is TypeScript.  If you already know TypeScript, the only thing it is even conceivably possible you will need to learn to fully understand what's going on here is esbuild, and that's only if you want to do something fancy.  All the usual things you might want to do, like serve some images alongside your code or bundle JSON or CSS files into your JavaScript file, can be done without any configuration changes.
 
 **Q: Why aren't you using the TypeScript compiler to compile the code?**
 
