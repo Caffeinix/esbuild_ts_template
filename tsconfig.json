@@ -35,13 +35,5 @@
 
     /* Completeness */
     "skipLibCheck": true,
-
-    /* Lit */
-    "plugins": [
-      {
-        "name": "ts-lit-plugin",
-        "strict": true
-      }
-    ]
   }
 }

@@ -2,7 +2,7 @@
   "name": "esbuild_test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "tsc && node scripts/build.mjs",
     "build:prod": "tsc && node scripts/build_prod.mjs",
@@ -15,10 +15,6 @@
   "type": "module",
   "devDependencies": {
     "esbuild": "^0.19.8",
-    "ts-lit-plugin": "^2.0.1",
     "typescript": "^5.3.2"
-  },
-  "dependencies": {
-    "lit": "^3.1.0"
   }
 }
