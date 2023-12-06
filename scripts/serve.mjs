@@ -7,6 +7,8 @@ const config = JSON.parse(
   await readFile(new URL("./config.json", import.meta.url))
 );
 
+let _lastBuildFailed = false;
+
 // A small esbuild plugin that runs tsc before each rebuild.
 //
 // If tsc detects any type-checking errors, the plugin returns an error to
@@ -24,8 +26,13 @@ const typecheckBeforeRebuilding = {
           {},
           (error, stdout, stderr) => {
             if (error === null) {
+              if (_lastBuildFailed) {
+                console.log('TypeScript type-checking succeeded');
+                _lastBuildFailed = false;
+              }
               resolve({});
             } else {
+              _lastBuildFailed = true;
               process.stdout.write(stdout);
               resolve({
                 errors: [
