@@ -66,8 +66,8 @@ but most of them are pretty obscure.
 The few options that need to be passed directly to esbuild, such as the path to
 the output file (which is `dist/main.js` by default) and the JavaScript version
 used for the output file, can be found in
-[scripts/config.mjs](scripts/config.mjs), which is just a JSON object conforming
-to the esbuild
+[scripts/config.json](scripts/config.json), which is a JSON object conforming to
+the esbuild
 [BuildOptions interface](https://github.com/evanw/esbuild/blob/main/lib/shared/types.ts).
 
 ## Build environments
